@@ -151,14 +151,18 @@
                     </div>
                 </div>
                 <div class="form-group">
-                <label for="restart_checkpoint">restart_checkpoint</label>
+                <label for="restart_checkpoint">Restart from Checkpoint</label>
                 {{ choice('restart_checkpoint', 'Restart MD Simulation from checkpoint', [
-                    ('yes', 'yes', 'Restart from checkpoint'),
-                    ('no', 'no', 'Dont restart')]) }}
+                    ('yes', 'Yes', 'Restart from checkpoint file'),
+                    ('no', 'No', 'Start fresh simulation')]) }}
                 </div>
-                <div class="form-group" id="restart_step">
-                <label for="restart_step">Restart_step</label>
-                {{ textfield('restart_step', 'Enter Restart step.') }}
+                <div class="form-group" id="restart_step_container">
+                <label for="restart_step">Restart Step</label>
+                {{ textfield('restart_step', 'Enter the step number to restart simulation from.') }}
+                </div>
+                <div class="form-group" id="restart_checkpoint_file_container">
+                <label for="restart_checkpoint_file">Checkpoint File Path</label>
+                {{ textfield('restart_checkpoint_file', 'Path to checkpoint file to load (e.g., checkpoint.chk or 10x_checkpoint.chk)') }}
                 </div>
                 </div>
             
@@ -396,7 +400,8 @@ function optionChanged() {
     document.getElementById("binding_mode").hidden = (openmmdl_analysis != 'Yes');
     document.getElementById("min_transition").hidden = (openmmdl_analysis != 'Yes');
     restart_checkpoint = document.getElementById("restart_checkpoint").value;
-    document.getElementById("restart_step").hidden = (restart_checkpoint != 'yes');
+    document.getElementById("restart_step_container").hidden = (restart_checkpoint != 'yes');
+    document.getElementById("restart_checkpoint_file_container").hidden = (restart_checkpoint != 'yes');
     nonbondedMethod = document.getElementById("nonbondedMethod").value;
     document.getElementById("cutoffRow").hidden = (nonbondedMethod == 'NoCutoff');
     document.getElementById("ewaldTolRow").hidden = (nonbondedMethod != 'PME');
