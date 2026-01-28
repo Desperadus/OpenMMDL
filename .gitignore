@@ -1,5 +1,6 @@
 # ignore files
 .vscode
+junit.xml
 
 # ignore entire folder with all its contents
 openmmdl.egg-info/
@@ -7,3 +8,6 @@ build/
 
 # ignore all __pycache__ folders
 __pycache__/
+
+# ignore pytest cache
+.pytest_cache/
