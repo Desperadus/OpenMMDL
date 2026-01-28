@@ -5,7 +5,6 @@ Restart simulations from checkpoints with OpenMM
 
 import argparse
 import os
-import shutil
 
 
 logo = "\n".join(
@@ -23,27 +22,6 @@ logo = "\n".join(
         r"                                     Version 1.2.0                                                     ",
     ]
 )
-
-
-def copy_file_if_exists(file_path, dest_folder, file_description):
-    """Copy a file to destination folder if it exists.
-
-    Args:
-        file_path (str): Path to the source file.
-        dest_folder (str): Destination folder path.
-        file_description (str): Description of the file for error messages.
-
-    Returns:
-        bool: True if file was copied successfully, False otherwise.
-    """
-    if file_path is None:
-        return True
-    if os.path.exists(file_path):
-        shutil.copy(file_path, dest_folder)
-        return True
-    else:
-        print(f"Wrong {file_description} path, try the absolute path")
-        return False
 
 
 def validate_file_format(file_path, valid_extensions, file_description):

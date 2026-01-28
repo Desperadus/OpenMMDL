@@ -8,7 +8,6 @@ from pathlib import Path
 from unittest.mock import patch
 
 from openmmdl.openmmdl_simulation.openmmdlrestart import (
-    copy_file_if_exists,
     validate_file_format,
     find_checkpoint_in_directory,
     find_script_in_directory,
@@ -31,29 +30,6 @@ def temp_dir():
     temp = tempfile.mkdtemp()
     yield temp
     shutil.rmtree(temp, ignore_errors=True)
-
-
-class TestCopyFileIfExists:
-    """Tests for copy_file_if_exists function."""
-
-    def test_copy_existing_file(self, test_data_directory, temp_dir):
-        """Test copying a file that exists."""
-        src_file = test_data_directory / "6b73.pdb"
-        result = copy_file_if_exists(str(src_file), temp_dir, "test file")
-        assert result is True
-        assert os.path.exists(os.path.join(temp_dir, "6b73.pdb"))
-
-    def test_copy_nonexistent_file(self, temp_dir, capsys):
-        """Test copying a file that doesn't exist."""
-        result = copy_file_if_exists("/nonexistent/file.pdb", temp_dir, "test file")
-        assert result is False
-        captured = capsys.readouterr()
-        assert "Wrong test file path" in captured.out
-
-    def test_copy_none_file(self, temp_dir):
-        """Test copying when file path is None (optional parameter)."""
-        result = copy_file_if_exists(None, temp_dir, "test file")
-        assert result is True
 
 
 class TestValidateFileFormat:
