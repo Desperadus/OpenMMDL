@@ -137,12 +137,12 @@ class TestMainRestartValidation:
             assert "--restart-step is required" in captured.out
 
 
-class TestRestartConfigFile:
-    """Tests for restart configuration file generation."""
+class TestRestartSimulationScript:
+    """Tests for restart simulation script generation."""
 
     @patch("openmmdl.openmmdl_simulation.openmmdlsimulation.os.system")
-    def test_restart_config_file_created(self, mock_system, test_data_directory, temp_dir):
-        """Test that restart config file is created with correct content."""
+    def test_restart_script_created(self, mock_system, test_data_directory, temp_dir):
+        """Test that restart simulation script is created with correct content."""
         script_path = temp_dir + "/test_script.py"
         topology_path = test_data_directory / "6b73.pdb"
         checkpoint_path = test_data_directory / "checkpoint.chk"
@@ -179,16 +179,16 @@ class TestRestartConfigFile:
             finally:
                 os.chdir(original_cwd)
 
-            # Check that restart config was created
-            config_path = os.path.join(folder_path, "restart_config.txt")
-            assert os.path.exists(config_path)
+            # Check that restart simulation script was created
+            restart_script_path = os.path.join(folder_path, "restart_simulation.py")
+            assert os.path.exists(restart_script_path)
 
-            with open(config_path, "r") as f:
+            with open(restart_script_path, "r") as f:
                 content = f.read()
-                assert "restart=true" in content
-                assert "checkpoint=checkpoint.chk" in content
-                assert "restart_step=10000" in content
-                assert "equilibrated=Equilibration_6b73.pdb" in content
+                assert "OpenMMDL Restart Simulation" in content
+                assert "checkpoint.chk" in content
+                assert "10000" in content
+                assert "loadCheckpoint" in content
 
 
 class TestFolderPreservation:

@@ -933,8 +933,6 @@ def configureDefaultOptions():
     """Select default options based on the file format and force field."""
     implicitWater = False
     session["restart_checkpoint"] = "no"
-    session["restart_step"] = "0"
-    session["restart_checkpoint_file"] = "checkpoint.chk"
     session["mdtraj_output"] = "mdtraj_pdb_dcd"
     session["mdtraj_removal"] = "False"
     session["mda_output"] = "mda_pdb_dcd"
@@ -1470,7 +1468,7 @@ with open(f'Equilibration_{prmtop_file[:-7]}.pdb', 'w') as outfile:
     """
         )
     if session["restart_checkpoint"] == "yes":
-        script.append("simulation.loadCheckpoint('%s')" % session["restart_checkpoint_file"])
+        script.append("simulation.loadCheckpoint('%s')" % session["checkpointFilename"])
 
     # Simulate
 
