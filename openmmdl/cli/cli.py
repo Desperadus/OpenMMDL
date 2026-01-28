@@ -14,6 +14,10 @@ COMMANDS: Dict[str, tuple[str, str]] = {
         "openmmdl.openmmdl_simulation.openmmdlsimulation:main",
         "Run OpenMM protein-ligand MD simulation",
     ),
+    "restart": (
+        "openmmdl.openmmdl_simulation.openmmdlrestart:main",
+        "Restart a stopped simulation from checkpoint",
+    ),
     "analysis": (
         "openmmdl.openmmdl_analysis.openmmdlanalysis:main",
         "Analyze an OpenMMDL MD trajectory",
